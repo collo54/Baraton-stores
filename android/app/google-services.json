@@ -1,0 +1,46 @@
+{
+  "project_info": {
+    "project_number": "985903147677",
+    "project_id": "baraton-stores",
+    "storage_bucket": "baraton-stores.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:985903147677:android:0dcd7735b0089463d84274",
+        "android_client_info": {
+          "package_name": "com.example.baraton_stores"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "985903147677-178d71ibhqeft1ouc7q28hdtfaup7877.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDBHzaY5JHt0KEg0gN8ypkZMC9ENsArJYc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "985903147677-178d71ibhqeft1ouc7q28hdtfaup7877.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "985903147677-cf7rij7infa7qiqphqd76updb4gsp46o.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.baratonStores"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
