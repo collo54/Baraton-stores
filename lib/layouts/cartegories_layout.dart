@@ -1,5 +1,6 @@
 import 'package:baraton_stores/constants/colors.dart';
 import 'package:baraton_stores/constants/text.dart';
+import 'package:baraton_stores/pages/computer_acessories_page.dart';
 import 'package:baraton_stores/pages/onboarding_page_four.dart';
 import 'package:baraton_stores/widgets/cartegories_card.dart';
 import 'package:flutter/material.dart';
@@ -78,7 +79,15 @@ class CartegoriesLayout extends StatelessWidget {
         const SizedBox(
           height: 15,
         ),
-        CartegoriesCard(ontap: () {}, text: 'Computers & Accessories'),
+        CartegoriesCard(
+            ontap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (context) => const ComputerAcessoriesPage()),
+              );
+            },
+            text: 'Computers & Accessories'),
         const SizedBox(
           height: 15,
         ),

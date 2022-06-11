@@ -89,6 +89,13 @@ flutter:
    - assets/images/Calendar_Outline.png
    - assets/images/iphone.png
    - assets/images/speaker.png
+   - assets/images/laptop1.png
+   - assets/images/laptop2.png
+   - assets/images/laptop3.png
+   - assets/images/monitors.png
+   - assets/images/googlehomemini.png
+   - assets/images/cableusb.png
+   - assets/images/personavator.jpg
   #   - images/a_dot_burr.jpeg
   #   - images/a_dot_ham.jpeg
 

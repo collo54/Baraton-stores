@@ -47,3 +47,21 @@ TextStyle thomeicontext = GoogleFonts.ptMono(
     fontWeight: FontWeight.w400,
   ),
 );
+
+TextStyle tlaptopacessoriesname = GoogleFonts.ptMono(
+  textStyle: const TextStyle(
+    height: 1.12,
+    color: kheadline,
+    fontSize: 16,
+    fontWeight: FontWeight.w400,
+  ),
+);
+
+TextStyle taccessoriesprice = GoogleFonts.ptMono(
+  textStyle: const TextStyle(
+    height: 1.12,
+    color: kacessoriesprice,
+    fontSize: 12,
+    fontWeight: FontWeight.w400,
+  ),
+);

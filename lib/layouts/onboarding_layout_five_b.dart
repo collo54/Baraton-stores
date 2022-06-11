@@ -1,10 +1,8 @@
 import 'package:baraton_stores/constants/colors.dart';
-import 'package:baraton_stores/pages/onboarding_page_one.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 
-import '../pages/onboarding_page_five_a.dart';
 import '../pages/onboarding_page_four.dart';
 import '../services/authentication_service.dart';
 

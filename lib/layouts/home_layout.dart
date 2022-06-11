@@ -1,10 +1,7 @@
 import 'package:baraton_stores/constants/colors.dart';
 import 'package:baraton_stores/constants/text.dart';
 import 'package:baraton_stores/pages/cartegories_page.dart';
-import 'package:baraton_stores/pages/onboarding_page_four.dart';
-import 'package:baraton_stores/widgets/cartegories_card.dart';
 import 'package:baraton_stores/widgets/home_card_orange.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class HomeLayout extends StatelessWidget {

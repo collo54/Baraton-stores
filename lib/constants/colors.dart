@@ -7,3 +7,5 @@ const Color kgreytext = Color.fromRGBO(85, 85, 85, 1);
 const Color kheadline = Color.fromRGBO(10, 16, 52, 1);
 const Color kpagewhite = Color.fromRGBO(253, 254, 255, 1);
 const Color klighticon = Color.fromRGBO(224, 236, 248, 1);
+const Color kacessoriesprice = Color.fromRGBO(0, 1, 252, 1);
+const Color ktabinactive = Color.fromRGBO(10, 16, 52, 1);
