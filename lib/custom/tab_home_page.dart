@@ -1,5 +1,7 @@
 import 'package:baraton_stores/custom/cupertino_home_scafold.dart';
 import 'package:baraton_stores/custom/tab_item.dart';
+import 'package:baraton_stores/pages/checkout_page.dart';
+import 'package:baraton_stores/pages/search_page.dart';
 import 'package:flutter/material.dart';
 
 import '../pages/home_page.dart';
@@ -17,8 +19,8 @@ class _TabHomePageState extends State<TabHomePage> {
   Map<TabItem, WidgetBuilder> get widgetBuilders {
     return {
       TabItem.home: (_) => const HomePage(),
-      TabItem.search: (_) => Container(),
-      TabItem.checkout: (_) => Container(),
+      TabItem.search: (_) => const SearchPage(),
+      TabItem.checkout: (_) => const CheckoutPage(),
       TabItem.account: (_) => Container(),
     };
   }

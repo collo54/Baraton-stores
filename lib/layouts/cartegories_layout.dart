@@ -37,7 +37,6 @@ class CartegoriesLayout extends StatelessWidget {
           color: kpagewhite,
         ),
         width: width,
-        height: 680,
         child: _buildMessage(context),
       ),
     ];

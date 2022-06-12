@@ -12,8 +12,8 @@ class Wrapper extends StatelessWidget {
   Widget build(BuildContext context) {
     if (userSnapshot.connectionState == ConnectionState.active) {
       return userSnapshot.hasData
-          ? const TabHomePage() //  // TapHomePage() replace with this on launch
-          : const OnboardingPageOne();
+          ? const TabHomePage() // TapHomePage() replace with this on launch
+          : const OnboardingPageOne(); //TabHomePage();
     }
     return const Scaffold(
       body: Center(

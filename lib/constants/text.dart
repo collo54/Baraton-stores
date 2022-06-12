@@ -65,3 +65,75 @@ TextStyle taccessoriesprice = GoogleFonts.ptMono(
     fontWeight: FontWeight.w400,
   ),
 );
+
+TextStyle tformtext = GoogleFonts.ptMono(
+  textStyle: const TextStyle(
+    height: 1.12,
+    color: kformlabeltext,
+    fontSize: 16,
+    fontWeight: FontWeight.w400,
+  ),
+);
+
+TextStyle tcapacity = GoogleFonts.ptMono(
+  textStyle: const TextStyle(
+    height: 1.12,
+    color: kcapacity,
+    fontSize: 16,
+    fontWeight: FontWeight.w400,
+  ),
+);
+
+TextStyle tnewtext = GoogleFonts.ptMono(
+  textStyle: const TextStyle(
+    height: 1.12,
+    color: knewtext,
+    fontSize: 12,
+    fontWeight: FontWeight.w400,
+  ),
+);
+
+TextStyle tcapacityother = GoogleFonts.ptMono(
+  textStyle: const TextStyle(
+    height: 1.12,
+    color: kcapacityOther,
+    fontSize: 16,
+    fontWeight: FontWeight.w400,
+  ),
+);
+
+TextStyle tdeliverytext = GoogleFonts.ptMono(
+  textStyle: const TextStyle(
+    height: 1.12,
+    color: kcapacityOther,
+    fontSize: 12,
+    fontWeight: FontWeight.w400,
+  ),
+);
+
+TextStyle tpromo = GoogleFonts.ptMono(
+  textStyle: const TextStyle(
+    height: 1.12,
+    color: kpromocode,
+    fontSize: 12,
+    fontWeight: FontWeight.w400,
+  ),
+);
+
+TextStyle ttiletext = GoogleFonts.ptMono(
+  textStyle: const TextStyle(
+    height: 1.12,
+    color: klisttile,
+    fontSize: 14,
+    fontWeight: FontWeight.w400,
+  ),
+);
+
+TextStyle tcheckoutprice = GoogleFonts.ptMono(
+  textStyle: const TextStyle(
+    height: 1.12,
+    color: kcapacity,
+    fontSize: 14,
+    fontWeight: FontWeight.w400,
+  ),
+);
