@@ -1,5 +1,5 @@
 import 'package:baraton_stores/constants/colors.dart';
-import 'package:baraton_stores/layouts/add_product_layout.dart';
+import 'package:baraton_stores/layouts/add_product_form.dart';
 import 'package:baraton_stores/layouts/computer_acessories_layout.dart';
 import 'package:flutter/material.dart';
 
