@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../services/authentication_service.dart';
+import '../services/firestore_service.dart';
 
 class WrapperBuilder extends StatelessWidget {
   const WrapperBuilder({Key? key, required this.builder}) : super(key: key);
@@ -22,9 +23,9 @@ class WrapperBuilder extends StatelessWidget {
                 // Provider<FirebaseStorageService>(
                 //  create: (_) => FirebaseStorageService(uid: user.uid!),
                 // ),
-                // Provider<FirestoreService>(
-                //  create: (_) => FirestoreService(uid: user.uid!),
-                //  ),
+                Provider<FirestoreService>(
+                  create: (_) => FirestoreService(uid: user.uid!),
+                ),
               ],
               child: builder(context, snapshot), //HomePage(),
             );

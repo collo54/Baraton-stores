@@ -1,10 +1,36 @@
 import 'package:baraton_stores/constants/colors.dart';
 import 'package:baraton_stores/constants/text.dart';
+import 'package:baraton_stores/custom/checkout_bloc.dart';
+import 'package:baraton_stores/models/product_model.dart';
 import 'package:baraton_stores/pages/onboarding_page_four.dart';
+import 'package:baraton_stores/widgets/acessories_card.dart';
+import 'package:baraton_stores/widgets/checkout_card.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
-class ComputerAcessoriesLayout extends StatelessWidget {
+import '../services/firestore_service.dart';
+
+class ComputerAcessoriesLayout extends StatefulWidget {
   const ComputerAcessoriesLayout({Key? key}) : super(key: key);
+
+  /* static Widget create(BuildContext context) {
+    return Provider<CheckoutBloc>(
+      create: (_) => CheckoutBloc(),
+      child: const ComputerAcessoriesLayout(),
+    );
+  }*/
+
+  @override
+  State<ComputerAcessoriesLayout> createState() =>
+      _ComputerAcessoriesLayoutState();
+}
+
+class _ComputerAcessoriesLayoutState extends State<ComputerAcessoriesLayout> {
+  //late List<CheckoutPageCard> _list;
+  late String _productnamevariable;
+  late String _pricevariable;
+  late String _imagevariable;
 
   @override
   Widget build(BuildContext context) {
@@ -41,6 +67,10 @@ class ComputerAcessoriesLayout extends StatelessWidget {
   }
 
   Widget _buildMessage(BuildContext context) {
+    final firestoreservice =
+        Provider.of<FirestoreService>(context, listen: false);
+    //final user = Provider.of<UserModel>(context);
+    //final bloc = Provider.of<CheckoutBloc>(context);
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -59,56 +89,103 @@ class ComputerAcessoriesLayout extends StatelessWidget {
         ),
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 5),
-          child: _buildItem(context),
+          child: StreamBuilder<List<ProductItem>>(
+            stream: firestoreservice.productItemStream(),
+            builder: (context, snapshot) {
+              if (snapshot.hasData) {
+                final productdata = snapshot.data!;
+                if (productdata.isNotEmpty) {
+                  final children = productdata
+                      .map(
+                        (product) => //Row(
+                            //children: [
+                            GestureDetector(
+                          onTap: () {
+                            setState(() {
+                              /*  List<CheckoutPageCard> list = <CheckoutPageCard>[
+                                CheckoutPageCard(
+                                    image: 'assets/images/iphone.png',
+                                    product: product.productname!,
+                                    price: product.price!)
+                              ];
+
+                              _list = list;*/
+
+                              _imagevariable = 'assets/images/iphone.png';
+                              _pricevariable = product.price!;
+                              _productnamevariable = product.productname!;
+
+                              if (kDebugMode) {
+                                print(_imagevariable);
+                                print(_pricevariable);
+                                print(_productnamevariable);
+                              }
+                            });
+                          },
+                          child: AcessoriesPageCard(
+                            image: 'assets/images/iphone.png',
+                            product: product.productname!,
+                            price: product.price!,
+                          ),
+                        ),
+                        // ],
+                        // ),
+                      )
+                      .toList();
+                  return Container(
+                    height: MediaQuery.of(context).size.height,
+                    child: GridView.count(
+                      primary: false,
+                      padding: const EdgeInsets.all(5),
+                      crossAxisSpacing: 1,
+                      mainAxisSpacing: 1,
+                      crossAxisCount: 2,
+                      children: children,
+                    ),
+                  ); /*ListView.separated(
+                      
+                      separatorBuilder:( context, index) => Divider()  ,
+                      itemCount: 1,
+                      itemBuilder: ( context, index) => ListTile(),
+                      );*/
+                }
+                return Row(
+                  children: [
+                    const SizedBox(width: 10),
+                    Flexible(
+                      child: Column(
+                        children: [
+                          Row(
+                            children: const [
+                              Text(
+                                '',
+                                style: TextStyle(
+                                    fontSize: 16,
+                                    color: Colors.black,
+                                    fontWeight: FontWeight.w600),
+                              ),
+                              Text('')
+                            ],
+                          ),
+                          const Text(
+                            '',
+                            overflow: TextOverflow.ellipsis,
+                          )
+                        ],
+                      ),
+                    ),
+                  ],
+                );
+              }
+              if (snapshot.hasError) {
+                return const Center(child: Text('error occurred'));
+              }
+              return const Center(child: CircularProgressIndicator());
+            },
+          ), //StreamBuilder(builder: builder),
         ),
         const SizedBox(
           height: 5,
-        ),
-        Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 5),
-          child: _buildItem2(context),
-        ),
-        const SizedBox(
-          height: 5,
-        ),
-        Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 5),
-          child: _buildItem3(context),
-        ),
-        const SizedBox(
-          height: 5,
-        ),
-        Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 5),
-          child: _buildItem3(context),
-        ),
-        const SizedBox(
-          height: 5,
-        ),
-        Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 5),
-          child: _buildItem(context),
-        ),
-        const SizedBox(
-          height: 5,
-        ),
-        Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 5),
-          child: _buildItem2(context),
-        ),
-        const SizedBox(
-          height: 5,
-        ),
-        Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 5),
-          child: _buildItem3(context),
-        ),
-        const SizedBox(
-          height: 5,
-        ),
-        Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 5),
-          child: _buildItem3(context),
         ),
         const SizedBox(
           height: 40,
@@ -118,156 +195,6 @@ class ComputerAcessoriesLayout extends StatelessWidget {
   }
 
   _buildItem(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      mainAxisAlignment: MainAxisAlignment.start,
-      children: [
-        Row(
-          children: [
-            Expanded(
-              flex: 1,
-              child: Card(
-                child: Container(
-                  color: kwhite,
-                  height: 150,
-                  width: 167,
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: [
-                      Image.asset(
-                        'assets/images/iphone.png',
-                        height: 69,
-                        width: 119,
-                      ),
-                      const SizedBox(
-                        height: 20,
-                      ),
-                      Text(
-                        'Surface laptop 3',
-                        style: tlaptopacessoriesname,
-                      ),
-                      Text(
-                        'kES 99999',
-                        style: taccessoriesprice,
-                      ),
-                    ],
-                  ),
-                ),
-              ),
-            ),
-            Expanded(
-              flex: 1,
-              child: Card(
-                child: Container(
-                  color: kwhite,
-                  height: 150,
-                  width: 167,
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: [
-                      Image.asset(
-                        'assets/images/laptop3.png',
-                        height: 69,
-                        width: 119,
-                      ),
-                      const SizedBox(
-                        height: 20,
-                      ),
-                      Text(
-                        'Surface laptop 3',
-                        style: tlaptopacessoriesname,
-                      ),
-                      Text(
-                        'kES 99999',
-                        style: taccessoriesprice,
-                      ),
-                    ],
-                  ),
-                ),
-              ),
-            ),
-          ],
-        ),
-      ],
-    );
-  }
-
-  _buildItem2(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      mainAxisAlignment: MainAxisAlignment.start,
-      children: [
-        Row(
-          children: [
-            Expanded(
-              flex: 1,
-              child: Card(
-                child: Container(
-                  color: kwhite,
-                  height: 150,
-                  width: 167,
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: [
-                      Image.asset(
-                        'assets/images/iphone.png',
-                        height: 69,
-                        width: 119,
-                      ),
-                      const SizedBox(
-                        height: 20,
-                      ),
-                      Text(
-                        'Surface laptop 3',
-                        style: tlaptopacessoriesname,
-                      ),
-                      Text(
-                        'kES 99999',
-                        style: taccessoriesprice,
-                      ),
-                    ],
-                  ),
-                ),
-              ),
-            ),
-            Expanded(
-              flex: 1,
-              child: Card(
-                child: Container(
-                  color: kwhite,
-                  height: 150,
-                  width: 167,
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: [
-                      Image.asset(
-                        'assets/images/laptop3.png',
-                        height: 69,
-                        width: 119,
-                      ),
-                      const SizedBox(
-                        height: 20,
-                      ),
-                      Text(
-                        'Surface laptop 3',
-                        style: tlaptopacessoriesname,
-                      ),
-                      Text(
-                        'kES 99999',
-                        style: taccessoriesprice,
-                      ),
-                    ],
-                  ),
-                ),
-              ),
-            ),
-          ],
-        ),
-      ],
-    );
-  }
-
-  _buildItem3(BuildContext context) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       mainAxisAlignment: MainAxisAlignment.start,

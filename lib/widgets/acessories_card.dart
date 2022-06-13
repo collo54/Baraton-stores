@@ -19,7 +19,7 @@ class AcessoriesPageCard extends StatelessWidget {
     return Card(
       child: Container(
         color: kwhite,
-        height: 150,
+        height: 180,
         width: 167,
         child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
@@ -30,11 +30,14 @@ class AcessoriesPageCard extends StatelessWidget {
               width: 119,
             ),
             const SizedBox(
-              height: 20,
+              height: 10,
             ),
-            Text(
-              product,
-              style: tlaptopacessoriesname,
+            Flexible(
+              fit: FlexFit.loose,
+              child: Text(
+                product,
+                style: tlaptopacessoriesname,
+              ),
             ),
             Text(
               price,
