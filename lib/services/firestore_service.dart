@@ -1,7 +1,9 @@
 import 'package:baraton_stores/models/product_model.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 String documentIdFromCurrentDate() => DateTime.now().toIso8601String();
+final userId = FirebaseAuth.instance.currentUser!.uid;
 
 class FirestoreService {
   FirestoreService({required this.uid});
@@ -25,6 +27,23 @@ class FirestoreService {
     return await FirebaseFirestore.instance
         .collection('computers')
         .add(productItem.toMap());
+  }
+
+  Future<DocumentReference> setcheckout(ProductItem productItem) async {
+    return await FirebaseFirestore.instance
+        .collection(userId)
+        .add(productItem.toMap());
+  }
+
+  Stream<List<ProductItem>> checkoutStream() {
+    final reference = FirebaseFirestore.instance
+        .collection(userId)
+        .limit(50)
+        .orderBy('timeStamp', descending: true);
+    final snapshots = reference.snapshots();
+    return snapshots.map((snapshot) => snapshot.docs
+        .map((snapshot) => ProductItem.fromMap(snapshot.data()))
+        .toList());
   }
 
   Stream<List<ProductItem>> productItemStream() {

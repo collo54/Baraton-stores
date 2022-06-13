@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:baraton_stores/constants/colors.dart';
 import 'package:baraton_stores/constants/text.dart';
 import 'package:baraton_stores/custom/checkout_bloc.dart';
@@ -5,6 +7,7 @@ import 'package:baraton_stores/models/product_model.dart';
 import 'package:baraton_stores/pages/onboarding_page_four.dart';
 import 'package:baraton_stores/widgets/acessories_card.dart';
 import 'package:baraton_stores/widgets/checkout_card.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -31,6 +34,21 @@ class _ComputerAcessoriesLayoutState extends State<ComputerAcessoriesLayout> {
   late String _productnamevariable;
   late String _pricevariable;
   late String _imagevariable;
+
+  // StreamController<List> eventController = StreamController<List>.broadcast();
+
+  CheckoutPageCard values() {
+    return CheckoutPageCard(
+        image: _imagevariable,
+        product: _productnamevariable,
+        price: _pricevariable);
+    //_imagevariable $_pricevariable
+    // _productnamevariable;
+  }
+
+  List<String> valueb() {
+    return [_productnamevariable, _pricevariable, _imagevariable];
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -100,27 +118,34 @@ class _ComputerAcessoriesLayoutState extends State<ComputerAcessoriesLayout> {
                         (product) => //Row(
                             //children: [
                             GestureDetector(
-                          onTap: () {
-                            setState(() {
+                          onTap: () async {
+                            /* setState(() {
                               /*  List<CheckoutPageCard> list = <CheckoutPageCard>[
                                 CheckoutPageCard(
                                     image: 'assets/images/iphone.png',
                                     product: product.productname!,
                                     price: product.price!)
                               ];
-
                               _list = list;*/
-
                               _imagevariable = 'assets/images/iphone.png';
                               _pricevariable = product.price!;
                               _productnamevariable = product.productname!;
+                            });*/
 
-                              if (kDebugMode) {
-                                print(_imagevariable);
-                                print(_pricevariable);
-                                print(_productnamevariable);
-                              }
-                            });
+                            final userId =
+                                FirebaseAuth.instance.currentUser!.uid;
+                            //final timeStamp = DateTime.now().millisecondsSinceEpoch;
+                            final time = DateTime.now().toIso8601String();
+                            final item = ProductItem(
+                              price: product.price!,
+                              productname: product.productname!,
+                              timeStamp: time,
+                              userId: userId,
+                            );
+                            final firestoreservice =
+                                Provider.of<FirestoreService>(context,
+                                    listen: false);
+                            await firestoreservice.setcheckout(item);
                           },
                           child: AcessoriesPageCard(
                             image: 'assets/images/iphone.png',

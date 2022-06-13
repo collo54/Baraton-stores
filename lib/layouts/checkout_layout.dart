@@ -3,6 +3,10 @@ import 'package:baraton_stores/constants/text.dart';
 import 'package:baraton_stores/widgets/checkout_card.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:provider/provider.dart';
+
+import '../models/product_model.dart';
+import '../services/firestore_service.dart';
 
 class CheckoutLayout extends StatefulWidget {
   const CheckoutLayout({Key? key}) : super(key: key);
@@ -47,6 +51,8 @@ class _CheckoutLayoutState extends State<CheckoutLayout> {
   }
 
   Widget _buildMessage(BuildContext context) {
+    final firestoreservice =
+        Provider.of<FirestoreService>(context, listen: false);
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -60,12 +66,118 @@ class _CheckoutLayoutState extends State<CheckoutLayout> {
             style: theadlinetext,
           ),
         ),
-        const SizedBox(
+        /* const SizedBox(
           height: 15,
         ),
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 5),
           child: _buildAddItem(context),
+        ),
+        const SizedBox(
+          height: 15,
+        ),*/
+        const SizedBox(
+          height: 15,
+        ),
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 5),
+          child: StreamBuilder<List<ProductItem>>(
+            stream: firestoreservice.checkoutStream(),
+            builder: (context, snapshot) {
+              if (snapshot.hasData) {
+                final productdata = snapshot.data!;
+                if (productdata.isNotEmpty) {
+                  final children = productdata
+                      .map(
+                        (product) => //Row(
+                            //children: [
+                            GestureDetector(
+                          onTap: () async {
+                            /* setState(() {
+                              /*  List<CheckoutPageCard> list = <CheckoutPageCard>[
+                                CheckoutPageCard(
+                                    image: 'assets/images/iphone.png',
+                                    product: product.productname!,
+                                    price: product.price!)
+                              ];
+                              _list = list;*/
+                              _imagevariable = 'assets/images/iphone.png';
+                              _pricevariable = product.price!;
+                              _productnamevariable = product.productname!;
+                            });*/
+
+                            /* final userId =
+                                FirebaseAuth.instance.currentUser!.uid;
+                            //final timeStamp = DateTime.now().millisecondsSinceEpoch;
+                            final time = DateTime.now().toIso8601String();
+                            final item = ProductItem(
+                              price: product.price!,
+                              productname: product.productname!,
+                              timeStamp: time,
+                              userId: userId,
+                            );
+                            final firestoreservice =
+                                Provider.of<FirestoreService>(context,
+                                    listen: false);
+                            await firestoreservice.setcheckout(item);*/
+                          },
+                          child: CheckoutPageCard(
+                            image: 'assets/images/iphone.png',
+                            product: product.productname!,
+                            price: product.price!,
+                          ),
+                        ),
+                        // ],
+                        // ),
+                      )
+                      .toList();
+                  return Container(
+                    height: 310,
+                    child: ListView(
+                      scrollDirection: Axis.horizontal,
+                      children: children,
+                    ),
+                  ); /*ListView.separated(
+                      
+                      separatorBuilder:( context, index) => Divider()  ,
+                      itemCount: 1,
+                      itemBuilder: ( context, index) => ListTile(),
+                      );*/
+                }
+                return Row(
+                  children: [
+                    const SizedBox(width: 10),
+                    Flexible(
+                      child: Column(
+                        children: [
+                          Row(
+                            children: const [
+                              Text(
+                                '',
+                                style: TextStyle(
+                                    fontSize: 16,
+                                    color: Colors.black,
+                                    fontWeight: FontWeight.w600),
+                              ),
+                              Text('')
+                            ],
+                          ),
+                          const Text(
+                            '',
+                            overflow: TextOverflow.ellipsis,
+                          )
+                        ],
+                      ),
+                    ),
+                  ],
+                );
+              }
+              if (snapshot.hasError) {
+                return const Center(child: Text('error occurred'));
+              }
+              return const Center(child: CircularProgressIndicator());
+            },
+          ), //StreamBuilder(builder: builder),
         ),
         const SizedBox(
           height: 15,
