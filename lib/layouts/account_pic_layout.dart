@@ -1,18 +1,14 @@
 import 'package:baraton_stores/constants/colors.dart';
 import 'package:baraton_stores/constants/text.dart';
-import 'package:baraton_stores/pages/computer_acessories_page.dart';
 import 'package:baraton_stores/pages/onboarding_page_four.dart';
 import 'package:baraton_stores/widgets/cartegories_card.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
-import '../pages/all_products_page.dart';
-import '../pages/beauty_page.dart';
-import '../pages/clothes_page.dart';
-import '../pages/house_items_page.dart';
-import '../pages/phones_page.dart';
+import '../pages/account_info_page.dart';
 
-class CartegoriesLayout extends StatelessWidget {
-  const CartegoriesLayout({Key? key}) : super(key: key);
+class AccountPicLayout extends StatelessWidget {
+  const AccountPicLayout({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -43,6 +39,7 @@ class CartegoriesLayout extends StatelessWidget {
           color: kpagewhite,
         ),
         width: width,
+        height: 680,
         child: _buildMessage(context),
       ),
     ];
@@ -58,12 +55,19 @@ class CartegoriesLayout extends StatelessWidget {
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 15),
           child: Text(
-            'Cartegories',
+            'Account',
             style: theadlinetext,
           ),
         ),
         const SizedBox(
-          height: 10,
+          height: 20,
+        ),
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 5),
+          child: _buildAvator(context),
+        ),
+        const SizedBox(
+          height: 20,
         ),
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 5),
@@ -80,15 +84,7 @@ class CartegoriesLayout extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
-        CartegoriesCard(
-            ontap: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                    builder: (context) => const AllProductsPage()),
-              );
-            },
-            text: 'All'),
+        CartegoriesCard(ontap: () {}, text: 'Orders'),
         const SizedBox(
           height: 15,
         ),
@@ -97,55 +93,40 @@ class CartegoriesLayout extends StatelessWidget {
               Navigator.push(
                 context,
                 MaterialPageRoute(
-                    builder: (context) => const ComputerAcessoriesPage()),
+                    builder: (context) => const AccountInfoPage()),
               );
             },
-            text: 'Computers & Accessories'),
+            text: 'Account Information'),
         const SizedBox(
           height: 15,
         ),
-        CartegoriesCard(
-            ontap: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => const BeautyPage()),
-              );
-            },
-            text: 'Beauty Products'),
+        CartegoriesCard(ontap: () {}, text: 'security and settings'),
         const SizedBox(
           height: 15,
-        ),
-        CartegoriesCard(
-            ontap: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => const PhonesPage()),
-              );
-            },
-            text: 'Phones & Accessories'),
-        const SizedBox(
-          height: 15,
-        ),
-        CartegoriesCard(
-            ontap: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => const ClothesPage()),
-              );
-            },
-            text: 'Clothes & Accessories'),
-        const SizedBox(
-          height: 15,
-        ),
-        CartegoriesCard(
-            ontap: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => const HouseItemsPage()),
-              );
-            },
-            text: 'Household Items'),
+        )
       ],
+    );
+  }
+
+  _buildAvator(BuildContext context) {
+    final String? image = FirebaseAuth.instance.currentUser!.photoURL;
+    final String? title = FirebaseAuth.instance.currentUser!.displayName;
+    return ListTile(
+      leading: CircleAvatar(
+        radius: 90,
+        backgroundImage: const AssetImage('assets/images/picavator.jpg'),
+        child: Image.network(
+          image!,
+        ),
+      ),
+      title: Text(
+        title!,
+        style: theadlinetext,
+      ),
+      subtitle: Text(
+        'Buyer',
+        style: tcapacity,
+      ),
     );
   }
 

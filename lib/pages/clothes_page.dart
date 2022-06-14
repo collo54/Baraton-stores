@@ -1,6 +1,6 @@
 import 'package:baraton_stores/constants/colors.dart';
-import 'package:baraton_stores/layouts/computer_form.dart';
-import 'package:baraton_stores/layouts/computer_acessories_layout.dart';
+import 'package:baraton_stores/layouts/clothes_layout.dart';
+import 'package:baraton_stores/layouts/clothes_product_form.dart';
 import 'package:flutter/material.dart';
 
 import '../constants/switch.dart';
@@ -8,14 +8,14 @@ import '../constants/text.dart';
 
 //enum AccountType { vendor, buyer }
 
-class ComputerAcessoriesPage extends StatefulWidget {
-  const ComputerAcessoriesPage({Key? key}) : super(key: key);
+class ClothesPage extends StatefulWidget {
+  const ClothesPage({Key? key}) : super(key: key);
 
   @override
-  State<ComputerAcessoriesPage> createState() => _ComputerAcessoriesPageState();
+  State<ClothesPage> createState() => _ClothesPageState();
 }
 
-class _ComputerAcessoriesPageState extends State<ComputerAcessoriesPage> {
+class _ClothesPageState extends State<ClothesPage> {
   AccountType _accountType = AccountType.buyer;
 
   void toggle() {
@@ -45,7 +45,7 @@ class _ComputerAcessoriesPageState extends State<ComputerAcessoriesPage> {
                   onPressed: (() {
                     Navigator.of(context, rootNavigator: true).push(
                       MaterialPageRoute(
-                          builder: (context) => const ComputerProductForm()),
+                          builder: (context) => const ClothesProductForm()),
                     );
                   }),
                   icon: const Icon(Icons.add)),
@@ -69,7 +69,7 @@ class _ComputerAcessoriesPageState extends State<ComputerAcessoriesPage> {
               ),
               onPressed: (() => toggle()),
             ),
-            const ComputerAcessoriesLayout(),
+            const ClothesLayout(),
           ],
         ),
       ),

@@ -5,6 +5,7 @@ import 'package:baraton_stores/pages/checkout_page.dart';
 import 'package:baraton_stores/pages/search_page.dart';
 import 'package:flutter/material.dart';
 
+import '../pages/account_pic_page.dart';
 import '../pages/home_page.dart';
 
 class TabHomePage extends StatefulWidget {
@@ -22,7 +23,7 @@ class _TabHomePageState extends State<TabHomePage> {
       TabItem.home: (_) => const HomePage(),
       TabItem.search: (_) => const SearchPage(),
       TabItem.checkout: (_) => const CheckoutPage(),
-      TabItem.account: (_) => const AccountInfoPage(),
+      TabItem.account: (_) => const AccountPicPage(),
     };
   }
 

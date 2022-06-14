@@ -15,9 +15,8 @@ import 'package:provider/provider.dart';
 import '../models/checkout_product.dart';
 import '../services/firestore_service.dart';
 
-class ComputerAcessoriesLayout extends StatefulWidget {
-  const ComputerAcessoriesLayout({Key? key, this.checkoutItem})
-      : super(key: key);
+class BeautyLayout extends StatefulWidget {
+  const BeautyLayout({Key? key, this.checkoutItem}) : super(key: key);
   final CheckoutItem? checkoutItem;
 
   /* static Widget create(BuildContext context) {
@@ -28,11 +27,10 @@ class ComputerAcessoriesLayout extends StatefulWidget {
   }*/
 
   @override
-  State<ComputerAcessoriesLayout> createState() =>
-      _ComputerAcessoriesLayoutState();
+  State<BeautyLayout> createState() => _BeautyLayoutState();
 }
 
-class _ComputerAcessoriesLayoutState extends State<ComputerAcessoriesLayout> {
+class _BeautyLayoutState extends State<BeautyLayout> {
   //late List<CheckoutPageCard> _list;
   late String _productnamevariable;
   late String _pricevariable;
@@ -101,7 +99,7 @@ class _ComputerAcessoriesLayoutState extends State<ComputerAcessoriesLayout> {
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 5),
           child: Text(
-            'Computers & Acessories',
+            'Beauty Products',
             style: theadlinetext,
           ),
         ),
@@ -111,7 +109,7 @@ class _ComputerAcessoriesLayoutState extends State<ComputerAcessoriesLayout> {
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 5),
           child: StreamBuilder<List<ProductItem>>(
-            stream: firestoreservice.productItemStream(),
+            stream: firestoreservice.productItemStream1(),
             builder: (context, snapshot) {
               if (snapshot.hasData) {
                 final productdata = snapshot.data!;

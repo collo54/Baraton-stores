@@ -8,15 +8,15 @@ import 'package:provider/provider.dart';
 
 import '../services/firestore_service.dart';
 
-class AddProductLayout extends StatefulWidget {
-  const AddProductLayout({Key? key, this.product}) : super(key: key);
+class AllProductsForm extends StatefulWidget {
+  const AllProductsForm({Key? key, this.product}) : super(key: key);
   final ProductItem? product;
 
   @override
-  State<AddProductLayout> createState() => _AddProductLayoutState();
+  State<AllProductsForm> createState() => _AllProductsFormState();
 }
 
-class _AddProductLayoutState extends State<AddProductLayout> {
+class _AllProductsFormState extends State<AllProductsForm> {
   final _formKey = GlobalKey<FormState>();
 
   late String? _price;
@@ -54,7 +54,7 @@ class _AddProductLayoutState extends State<AddProductLayout> {
       );
       final firestoreservice =
           Provider.of<FirestoreService>(context, listen: false);
-      await firestoreservice.setProduct(item);
+      await firestoreservice.setProductAll(item);
     }
   }
 

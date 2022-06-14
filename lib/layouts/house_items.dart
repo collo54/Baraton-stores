@@ -1,23 +1,18 @@
-import 'dart:async';
-
 import 'package:baraton_stores/constants/colors.dart';
 import 'package:baraton_stores/constants/text.dart';
-import 'package:baraton_stores/custom/checkout_bloc.dart';
 import 'package:baraton_stores/models/product_model.dart';
 import 'package:baraton_stores/pages/onboarding_page_four.dart';
 import 'package:baraton_stores/widgets/acessories_card.dart';
 import 'package:baraton_stores/widgets/checkout_card.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../models/checkout_product.dart';
 import '../services/firestore_service.dart';
 
-class ComputerAcessoriesLayout extends StatefulWidget {
-  const ComputerAcessoriesLayout({Key? key, this.checkoutItem})
-      : super(key: key);
+class HouseItemsLayout extends StatefulWidget {
+  const HouseItemsLayout({Key? key, this.checkoutItem}) : super(key: key);
   final CheckoutItem? checkoutItem;
 
   /* static Widget create(BuildContext context) {
@@ -28,11 +23,10 @@ class ComputerAcessoriesLayout extends StatefulWidget {
   }*/
 
   @override
-  State<ComputerAcessoriesLayout> createState() =>
-      _ComputerAcessoriesLayoutState();
+  State<HouseItemsLayout> createState() => _HouseItemsLayoutState();
 }
 
-class _ComputerAcessoriesLayoutState extends State<ComputerAcessoriesLayout> {
+class _HouseItemsLayoutState extends State<HouseItemsLayout> {
   //late List<CheckoutPageCard> _list;
   late String _productnamevariable;
   late String _pricevariable;
@@ -101,7 +95,7 @@ class _ComputerAcessoriesLayoutState extends State<ComputerAcessoriesLayout> {
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 5),
           child: Text(
-            'Computers & Acessories',
+            'Household Items',
             style: theadlinetext,
           ),
         ),
@@ -111,7 +105,7 @@ class _ComputerAcessoriesLayoutState extends State<ComputerAcessoriesLayout> {
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 5),
           child: StreamBuilder<List<ProductItem>>(
-            stream: firestoreservice.productItemStream(),
+            stream: firestoreservice.productItemStream4(),
             builder: (context, snapshot) {
               if (snapshot.hasData) {
                 final productdata = snapshot.data!;

@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 
+import '../models/checkout_product.dart';
 import '../models/product_model.dart';
 import '../services/firestore_service.dart';
 
@@ -50,6 +51,11 @@ class _CheckoutLayoutState extends State<CheckoutLayout> {
     ];
   }
 
+  Future<void> _delete(BuildContext context, CheckoutItem checkoutItem) async {
+    final database = Provider.of<FirestoreService>(context, listen: false);
+    await database.deleteContibutor(checkoutItem);
+  }
+
   Widget _buildMessage(BuildContext context) {
     final firestoreservice =
         Provider.of<FirestoreService>(context, listen: false);
@@ -66,23 +72,13 @@ class _CheckoutLayoutState extends State<CheckoutLayout> {
             style: theadlinetext,
           ),
         ),
-        /* const SizedBox(
-          height: 15,
-        ),
-        Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 5),
-          child: _buildAddItem(context),
-        ),
-        const SizedBox(
-          height: 15,
-        ),*/
         const SizedBox(
           height: 15,
         ),
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 5),
-          child: StreamBuilder<List<ProductItem>>(
-            stream: firestoreservice.checkoutStream(),
+          child: StreamBuilder<List<CheckoutItem>>(
+            stream: firestoreservice.checkoutItemsStream(),
             builder: (context, snapshot) {
               if (snapshot.hasData) {
                 final productdata = snapshot.data!;
@@ -91,36 +87,10 @@ class _CheckoutLayoutState extends State<CheckoutLayout> {
                       .map(
                         (product) => //Row(
                             //children: [
-                            GestureDetector(
-                          onTap: () async {
-                            /* setState(() {
-                              /*  List<CheckoutPageCard> list = <CheckoutPageCard>[
-                                CheckoutPageCard(
-                                    image: 'assets/images/iphone.png',
-                                    product: product.productname!,
-                                    price: product.price!)
-                              ];
-                              _list = list;*/
-                              _imagevariable = 'assets/images/iphone.png';
-                              _pricevariable = product.price!;
-                              _productnamevariable = product.productname!;
-                            });*/
-
-                            /* final userId =
-                                FirebaseAuth.instance.currentUser!.uid;
-                            //final timeStamp = DateTime.now().millisecondsSinceEpoch;
-                            final time = DateTime.now().toIso8601String();
-                            final item = ProductItem(
-                              price: product.price!,
-                              productname: product.productname!,
-                              timeStamp: time,
-                              userId: userId,
-                            );
-                            final firestoreservice =
-                                Provider.of<FirestoreService>(context,
-                                    listen: false);
-                            await firestoreservice.setcheckout(item);*/
-                          },
+                            Dismissible(
+                          key: Key(UniqueKey().toString()),
+                          direction: DismissDirection.down,
+                          onDismissed: (direction) => _delete(context, product),
                           child: CheckoutPageCard(
                             image: 'assets/images/iphone.png',
                             product: product.productname!,
@@ -137,12 +107,7 @@ class _CheckoutLayoutState extends State<CheckoutLayout> {
                       scrollDirection: Axis.horizontal,
                       children: children,
                     ),
-                  ); /*ListView.separated(
-                      
-                      separatorBuilder:( context, index) => Divider()  ,
-                      itemCount: 1,
-                      itemBuilder: ( context, index) => ListTile(),
-                      );*/
+                  );
                 }
                 return Row(
                   children: [

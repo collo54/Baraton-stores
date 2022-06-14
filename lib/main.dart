@@ -15,6 +15,8 @@ void main() async {
   runApp(const MyApp());
 }
 
+//final GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
+
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
 
@@ -33,6 +35,7 @@ class MyApp extends StatelessWidget {
       child: WrapperBuilder(
         builder: (context, userSnapshot) {
           return MaterialApp(
+            // navigatorKey: navigatorKey,
             title: 'Baraton stores',
             debugShowCheckedModeBanner: false,
             theme: ThemeData(fontFamily: 'Roboto'),
