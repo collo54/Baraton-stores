@@ -9,14 +9,14 @@ class CheckoutItem {
       this.downloadUrl});
   final String? productname;
   final String? timeStamp;
-  final String? price;
+  final double? price;
   final String? userId;
   final String? downloadUrl;
   final String? promocode;
   final String id;
 
   factory CheckoutItem.fromMap(Map<String, dynamic> data, String id) {
-    final String? price = data['price'];
+    final double? price = data['price'];
     final String? timeStamp = data['timeStamp'];
     final String? userId = data['userId'];
     final String? productname = data['productname'];

@@ -45,7 +45,8 @@ class _ComputerAcessoriesPageState extends State<ComputerAcessoriesPage> {
                   onPressed: (() {
                     Navigator.of(context, rootNavigator: true).push(
                       MaterialPageRoute(
-                          builder: (context) => const ComputerProductForm()),
+                          builder: (context) => SingleChildScrollView(
+                              child: const ComputerProductForm())),
                     );
                   }),
                   icon: const Icon(Icons.add)),

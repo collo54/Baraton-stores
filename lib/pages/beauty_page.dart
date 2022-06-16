@@ -45,7 +45,8 @@ class _BeautyPageState extends State<BeautyPage> {
                   onPressed: (() {
                     Navigator.of(context, rootNavigator: true).push(
                       MaterialPageRoute(
-                          builder: (context) => const BeautyProductform()),
+                          builder: (context) => SingleChildScrollView(
+                              child: const BeautyProductform())),
                     );
                   }),
                   icon: const Icon(Icons.add)),

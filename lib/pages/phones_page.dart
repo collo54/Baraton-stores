@@ -45,7 +45,8 @@ class _PhonesPageState extends State<PhonesPage> {
                   onPressed: (() {
                     Navigator.of(context, rootNavigator: true).push(
                       MaterialPageRoute(
-                          builder: (context) => const PhonesProductForm()),
+                          builder: (context) => SingleChildScrollView(
+                              child: const PhonesProductForm())),
                     );
                   }),
                   icon: const Icon(Icons.add)),

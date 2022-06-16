@@ -3,16 +3,18 @@ import 'package:flutter/material.dart';
 
 import '../constants/text.dart';
 
-class AcessoriesPageCard extends StatelessWidget {
-  const AcessoriesPageCard(
+class OtherAccessoriesCard extends StatelessWidget {
+  const OtherAccessoriesCard(
       {Key? key,
-      required this.image,
+      required this.widget,
+      // required this.image,
       required this.product,
       required this.price})
       : super(key: key);
-  final String image;
+  // final String image;
   final String product;
   final String price;
+  final Widget widget;
 
   @override
   Widget build(BuildContext context) {
@@ -24,11 +26,7 @@ class AcessoriesPageCard extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
-            Image.network(
-              image,
-              height: 69,
-              width: 119,
-            ),
+            widget,
             const SizedBox(
               height: 10,
             ),

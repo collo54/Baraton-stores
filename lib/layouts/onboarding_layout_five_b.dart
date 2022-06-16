@@ -16,9 +16,9 @@ class OnboardingLayoutFiveB extends StatefulWidget {
 class _OnboardingLayoutFiveBState extends State<OnboardingLayoutFiveB> {
   final _formKey = GlobalKey<FormState>();
 
-  late final String? _name;
-  late String? _email;
-  late String? _password;
+  String? _name;
+  String? _email;
+  String? _password;
 
   //A future asynchronous field that implements authservice to sign in anonymously when
   // user clicks anonymous button

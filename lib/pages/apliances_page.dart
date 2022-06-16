@@ -1,46 +1,33 @@
 import 'package:baraton_stores/constants/colors.dart';
-import 'package:baraton_stores/layouts/clothes_layout.dart';
-import 'package:baraton_stores/layouts/clothes_product_form.dart';
+import 'package:baraton_stores/layouts/apliances_form.dart';
+import 'package:baraton_stores/layouts/apliances_layout.dart';
+import 'package:baraton_stores/layouts/beauty_layout.dart';
+import 'package:baraton_stores/layouts/beauty_product_form.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 
 import '../constants/switch.dart';
 import '../constants/text.dart';
-import '../models/new_product_model.dart';
-import '../services/firestore_service.dart';
-import '../widgets/acessories_card.dart';
 
 //enum AccountType { vendor, buyer }
 
-class ClothesPage extends StatefulWidget {
-  const ClothesPage({Key? key}) : super(key: key);
+class ApliancesPage extends StatefulWidget {
+  const ApliancesPage({Key? key}) : super(key: key);
 
   @override
-  State<ClothesPage> createState() => _ClothesPageState();
+  State<ApliancesPage> createState() => _ApliancesPageState();
 }
 
-class _ClothesPageState extends State<ClothesPage> {
+class _ApliancesPageState extends State<ApliancesPage> {
   AccountType _accountType = AccountType.buyer;
-  bool? _verify = true;
 
   void toggle() {
-    if (_verify == true) {
-      setState(
-        () {
-          _accountType = _accountType == AccountType.buyer
-              ? AccountType.vendor
-              : AccountType.buyer;
-        },
-      );
-    } else {
-      setState(
-        () {
-          _accountType = _accountType == AccountType.buyer
-              ? AccountType.buyer
-              : AccountType.buyer;
-        },
-      );
-    }
+    setState(
+      () {
+        _accountType = _accountType == AccountType.buyer
+            ? AccountType.vendor
+            : AccountType.buyer;
+      },
+    );
   }
 
   @override
@@ -60,8 +47,7 @@ class _ClothesPageState extends State<ClothesPage> {
                   onPressed: (() {
                     Navigator.of(context, rootNavigator: true).push(
                       MaterialPageRoute(
-                          builder: (context) => SingleChildScrollView(
-                              child: const ClothesProductForm())),
+                          builder: (context) => const Apliancesform()),
                     );
                   }),
                   icon: const Icon(Icons.add)),
@@ -85,7 +71,7 @@ class _ClothesPageState extends State<ClothesPage> {
               ),
               onPressed: (() => toggle()),
             ),
-            const ClothesLayout(),
+            const ApliancesLayout(),
           ],
         ),
       ),

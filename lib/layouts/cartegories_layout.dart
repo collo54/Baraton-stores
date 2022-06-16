@@ -1,5 +1,6 @@
 import 'package:baraton_stores/constants/colors.dart';
 import 'package:baraton_stores/constants/text.dart';
+import 'package:baraton_stores/pages/apliances_page.dart';
 import 'package:baraton_stores/pages/computer_acessories_page.dart';
 import 'package:baraton_stores/pages/onboarding_page_four.dart';
 import 'package:baraton_stores/widgets/cartegories_card.dart';
@@ -81,70 +82,84 @@ class CartegoriesLayout extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
         CartegoriesCard(
-            ontap: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                    builder: (context) => const AllProductsPage()),
-              );
-            },
-            text: 'All'),
+          ontap: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => const AllProductsPage()),
+            );
+          },
+          text: 'All',
+        ),
         const SizedBox(
           height: 15,
         ),
         CartegoriesCard(
-            ontap: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                    builder: (context) => const ComputerAcessoriesPage()),
-              );
-            },
-            text: 'Computers & Accessories'),
+          ontap: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                  builder: (context) => const ComputerAcessoriesPage()),
+            );
+          },
+          text: 'Computers & Accessories',
+        ),
         const SizedBox(
           height: 15,
         ),
         CartegoriesCard(
-            ontap: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => const BeautyPage()),
-              );
-            },
-            text: 'Beauty Products'),
+          ontap: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => const BeautyPage()),
+            );
+          },
+          text: 'Beauty Products',
+        ),
         const SizedBox(
           height: 15,
         ),
         CartegoriesCard(
-            ontap: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => const PhonesPage()),
-              );
-            },
-            text: 'Phones & Accessories'),
+          ontap: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => const PhonesPage()),
+            );
+          },
+          text: 'Phones & Accessories',
+        ),
         const SizedBox(
           height: 15,
         ),
         CartegoriesCard(
-            ontap: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => const ClothesPage()),
-              );
-            },
-            text: 'Clothes & Accessories'),
+          ontap: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => const ClothesPage()),
+            );
+          },
+          text: 'Clothes & Accessories',
+        ),
         const SizedBox(
           height: 15,
         ),
         CartegoriesCard(
-            ontap: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => const HouseItemsPage()),
-              );
-            },
-            text: 'Household Items'),
+          ontap: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => const HouseItemsPage()),
+            );
+          },
+          text: 'Household Items',
+        ),
+        /* CartegoriesCard(
+          ontap: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => const ApliancesPage()),
+            );
+          },
+          text: 'Apliances',
+        ),*/
       ],
     );
   }

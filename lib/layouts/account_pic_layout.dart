@@ -112,17 +112,18 @@ class AccountPicLayout extends StatelessWidget {
     final String? image = FirebaseAuth.instance.currentUser!.photoURL;
     final String? title = FirebaseAuth.instance.currentUser!.displayName;
     return ListTile(
-      leading: CircleAvatar(
-        radius: 90,
-        backgroundImage: const AssetImage('assets/images/picavator.jpg'),
-        child: Image.network(
-          image!,
-        ),
-      ),
-      title: Text(
-        title!,
-        style: theadlinetext,
-      ),
+      leading: image != null
+          ? ClipOval(child: Image.network(image))
+          : ClipOval(child: Image.asset('assets/images/picavator.jpg')),
+      title: title != null
+          ? Text(
+              title,
+              style: theadlinetext,
+            )
+          : Text(
+              'user',
+              style: theadlinetext,
+            ),
       subtitle: Text(
         'Buyer',
         style: tcapacity,

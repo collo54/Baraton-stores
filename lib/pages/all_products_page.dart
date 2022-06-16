@@ -45,7 +45,8 @@ class _AllProductsPageState extends State<AllProductsPage> {
                   onPressed: (() {
                     Navigator.of(context, rootNavigator: true).push(
                       MaterialPageRoute(
-                          builder: (context) => const AllProductsForm()),
+                          builder: (context) => const SingleChildScrollView(
+                              child: AllProductsForm())),
                     );
                   }),
                   icon: const Icon(Icons.add)),

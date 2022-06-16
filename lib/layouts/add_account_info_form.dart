@@ -49,7 +49,7 @@ class _AddAccountInfoFormState extends State<AddAccountInfoForm> {
       //final timeStamp = DateTime.now().millisecondsSinceEpoch;
       final time = DateTime.now().toIso8601String();
       final item = ProductItem(
-        price: _email,
+        price: 0,
         productname: _emailconfirm,
         timeStamp: time,
         userId: userId,

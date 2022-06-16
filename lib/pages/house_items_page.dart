@@ -45,7 +45,8 @@ class _HouseItemsPageState extends State<HouseItemsPage> {
                   onPressed: (() {
                     Navigator.of(context, rootNavigator: true).push(
                       MaterialPageRoute(
-                          builder: (context) => const HouseitemsForm()),
+                          builder: (context) => SingleChildScrollView(
+                              child: const HouseitemsForm())),
                     );
                   }),
                   icon: const Icon(Icons.add)),

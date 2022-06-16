@@ -1,3 +1,4 @@
+import 'dart:core';
 import 'package:baraton_stores/constants/colors.dart';
 import 'package:baraton_stores/constants/text.dart';
 import 'package:baraton_stores/widgets/checkout_card.dart';
@@ -17,6 +18,8 @@ class CheckoutLayout extends StatefulWidget {
 }
 
 class _CheckoutLayoutState extends State<CheckoutLayout> {
+  double? _total;
+
   @override
   Widget build(BuildContext context) {
     return LayoutBuilder(
@@ -94,19 +97,67 @@ class _CheckoutLayoutState extends State<CheckoutLayout> {
                           child: CheckoutPageCard(
                             image: 'assets/images/iphone.png',
                             product: product.productname!,
-                            price: product.price!,
+                            price: product.price!.toString(),
                           ),
                         ),
                         // ],
                         // ),
                       )
                       .toList();
-                  return Container(
-                    height: 310,
-                    child: ListView(
-                      scrollDirection: Axis.horizontal,
-                      children: children,
-                    ),
+
+                  final List<double> total = productdata
+                      .map(
+                        (product) => product.price!,
+                      )
+                      .toList();
+
+                  double _sumall(List<double> arr) {
+                    double _sum = 0;
+                    for (final item in arr) {
+                      _sum += item;
+                    }
+                    return _sum;
+                  }
+
+                  //  _sumall(total);
+
+                  return Column(
+                    children: [
+                      Container(
+                        height: 310,
+                        child: ListView(
+                          scrollDirection: Axis.horizontal,
+                          children: children,
+                        ),
+                      ),
+                      const SizedBox(height: 15),
+                      ListTile(
+                        leading: Text(
+                          'Total',
+                          style: tcartegoriestext,
+                        ),
+                        title: Padding(
+                          padding: const EdgeInsets.only(left: 25),
+                          child: Text(
+                            _sumall(total).toString(),
+                            style: tcapacity,
+                          ),
+                        ),
+                        subtitle: Padding(
+                          padding: const EdgeInsets.only(left: 25),
+                          child: Text(
+                            'Enter a promo code',
+                            style: tpromo,
+                          ),
+                        ),
+                      ),
+                      const Divider(
+                        thickness: 0.2,
+                        color: kgreytext,
+                        endIndent: 10,
+                        indent: 10,
+                      ),
+                    ],
                   );
                 }
                 return Row(
@@ -272,33 +323,7 @@ class _CheckoutLayoutState extends State<CheckoutLayout> {
           endIndent: 10,
           indent: 10,
         ),
-        const SizedBox(height: 5),
-        ListTile(
-          leading: Text(
-            'Total',
-            style: tcartegoriestext,
-          ),
-          title: Padding(
-            padding: const EdgeInsets.only(left: 25),
-            child: Text(
-              'KES 166500',
-              style: tcapacity,
-            ),
-          ),
-          subtitle: Padding(
-            padding: const EdgeInsets.only(left: 25),
-            child: Text(
-              'Enter a promo code',
-              style: tpromo,
-            ),
-          ),
-        ),
-        const Divider(
-          thickness: 0.2,
-          color: kgreytext,
-          endIndent: 10,
-          indent: 10,
-        ),
+        const SizedBox(height: 15),
       ],
     );
   }

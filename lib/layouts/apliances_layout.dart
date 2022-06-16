@@ -2,17 +2,18 @@ import 'package:baraton_stores/constants/colors.dart';
 import 'package:baraton_stores/constants/text.dart';
 import 'package:baraton_stores/models/product_model.dart';
 import 'package:baraton_stores/pages/onboarding_page_four.dart';
+import 'package:baraton_stores/widgets/acessories_card.dart';
 import 'package:baraton_stores/widgets/checkout_card.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../models/checkout_product.dart';
+import '../models/new_product_model.dart';
 import '../services/firestore_service.dart';
-import '../widgets/other_acessories_card.dart';
 
-class HouseItemsLayout extends StatefulWidget {
-  const HouseItemsLayout({Key? key, this.checkoutItem}) : super(key: key);
+class ApliancesLayout extends StatefulWidget {
+  const ApliancesLayout({Key? key, this.checkoutItem}) : super(key: key);
   final CheckoutItem? checkoutItem;
 
   /* static Widget create(BuildContext context) {
@@ -23,10 +24,10 @@ class HouseItemsLayout extends StatefulWidget {
   }*/
 
   @override
-  State<HouseItemsLayout> createState() => _HouseItemsLayoutState();
+  State<ApliancesLayout> createState() => _ApliancesLayoutState();
 }
 
-class _HouseItemsLayoutState extends State<HouseItemsLayout> {
+class _ApliancesLayoutState extends State<ApliancesLayout> {
   //late List<CheckoutPageCard> _list;
   late String _productnamevariable;
   late String _pricevariable;
@@ -95,7 +96,7 @@ class _HouseItemsLayoutState extends State<HouseItemsLayout> {
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 5),
           child: Text(
-            'Household Items',
+            'Apliances',
             style: theadlinetext,
           ),
         ),
@@ -104,8 +105,8 @@ class _HouseItemsLayoutState extends State<HouseItemsLayout> {
         ),
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 5),
-          child: StreamBuilder<List<ProductItem>>(
-            stream: firestoreservice.productItemStream4(),
+          child: StreamBuilder<List<NewProductItem>>(
+            stream: firestoreservice.apliancesStream(),
             builder: (context, snapshot) {
               if (snapshot.hasData) {
                 final productdata = snapshot.data!;
@@ -147,26 +148,12 @@ class _HouseItemsLayoutState extends State<HouseItemsLayout> {
                                     listen: false);
                             await firestoreservice.setCheckoutItem(item);
                           },
-                          child: OtherAccessoriesCard(
-                            widget: product.downloadUrl != null
-                                ? Image.network(
-                                    product.downloadUrl!,
-                                    height: 69,
-                                    width: 119,
-                                  )
-                                : Image.asset(
-                                    'assets/images/iphone.png',
-                                    height: 69,
-                                    width: 119,
-                                  ),
+                          child: AcessoriesPageCard(
+                            image: product.downloadUrl ??
+                                'assets/images/iphone.png',
                             product: product.productname!,
                             price: product.price!.toString(),
                           ),
-                          /*AcessoriesPageCard(
-                            image: 'assets/images/iphone.png',
-                            product: product.productname!,
-                            price: product.price!,
-                          ),*/
                         ),
                         // ],
                         // ),
@@ -230,6 +217,81 @@ class _HouseItemsLayoutState extends State<HouseItemsLayout> {
         const SizedBox(
           height: 40,
         )
+      ],
+    );
+  }
+
+  _buildItem(BuildContext context) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      mainAxisAlignment: MainAxisAlignment.start,
+      children: [
+        Row(
+          children: [
+            Expanded(
+              flex: 1,
+              child: Card(
+                child: Container(
+                  color: kwhite,
+                  height: 150,
+                  width: 167,
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      Image.asset(
+                        'assets/images/iphone.png',
+                        height: 69,
+                        width: 119,
+                      ),
+                      const SizedBox(
+                        height: 20,
+                      ),
+                      Text(
+                        'Surface laptop 3',
+                        style: tlaptopacessoriesname,
+                      ),
+                      Text(
+                        'kES 99999',
+                        style: taccessoriesprice,
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            ),
+            Expanded(
+              flex: 1,
+              child: Card(
+                child: Container(
+                  color: kwhite,
+                  height: 150,
+                  width: 167,
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      Image.asset(
+                        'assets/images/laptop3.png',
+                        height: 69,
+                        width: 119,
+                      ),
+                      const SizedBox(
+                        height: 20,
+                      ),
+                      Text(
+                        'Surface laptop 3',
+                        style: tlaptopacessoriesname,
+                      ),
+                      Text(
+                        'kES 99999',
+                        style: taccessoriesprice,
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            ),
+          ],
+        ),
       ],
     );
   }

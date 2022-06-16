@@ -1,3 +1,4 @@
+import 'package:baraton_stores/constants/colors.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -38,7 +39,7 @@ class MyApp extends StatelessWidget {
             // navigatorKey: navigatorKey,
             title: 'Baraton stores',
             debugShowCheckedModeBanner: false,
-            theme: ThemeData(fontFamily: 'Roboto'),
+            theme: ThemeData(fontFamily: 'Roboto', backgroundColor: kpagewhite),
             home: Wrapper(
               userSnapshot: userSnapshot,
             ),

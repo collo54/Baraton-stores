@@ -1,19 +1,15 @@
-import 'dart:async';
-
 import 'package:baraton_stores/constants/colors.dart';
 import 'package:baraton_stores/constants/text.dart';
-import 'package:baraton_stores/custom/checkout_bloc.dart';
 import 'package:baraton_stores/models/product_model.dart';
 import 'package:baraton_stores/pages/onboarding_page_four.dart';
-import 'package:baraton_stores/widgets/acessories_card.dart';
 import 'package:baraton_stores/widgets/checkout_card.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../models/checkout_product.dart';
 import '../services/firestore_service.dart';
+import '../widgets/other_acessories_card.dart';
 
 class BeautyLayout extends StatefulWidget {
   const BeautyLayout({Key? key, this.checkoutItem}) : super(key: key);
@@ -151,11 +147,26 @@ class _BeautyLayoutState extends State<BeautyLayout> {
                                     listen: false);
                             await firestoreservice.setCheckoutItem(item);
                           },
-                          child: AcessoriesPageCard(
+                          child: OtherAccessoriesCard(
+                            widget: product.downloadUrl != null
+                                ? Image.network(
+                                    product.downloadUrl!,
+                                    height: 69,
+                                    width: 119,
+                                  )
+                                : Image.asset(
+                                    'assets/images/iphone.png',
+                                    height: 69,
+                                    width: 119,
+                                  ),
+                            product: product.productname!,
+                            price: product.price!.toString(),
+                          ),
+                          /* AcessoriesPageCard(
                             image: 'assets/images/iphone.png',
                             product: product.productname!,
                             price: product.price!,
-                          ),
+                          ),*/
                         ),
                         // ],
                         // ),

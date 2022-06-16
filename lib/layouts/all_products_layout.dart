@@ -2,8 +2,8 @@ import 'package:baraton_stores/constants/colors.dart';
 import 'package:baraton_stores/constants/text.dart';
 import 'package:baraton_stores/models/product_model.dart';
 import 'package:baraton_stores/pages/onboarding_page_four.dart';
-import 'package:baraton_stores/widgets/acessories_card.dart';
 import 'package:baraton_stores/widgets/checkout_card.dart';
+import 'package:baraton_stores/widgets/other_acessories_card.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -27,12 +27,9 @@ class AllProductsLayout extends StatefulWidget {
 }
 
 class _AllProductsLayoutState extends State<AllProductsLayout> {
-  //late List<CheckoutPageCard> _list;
   late String _productnamevariable;
   late String _pricevariable;
   late String _imagevariable;
-
-  // StreamController<List> eventController = StreamController<List>.broadcast();
 
   CheckoutPageCard values() {
     return CheckoutPageCard(
@@ -147,14 +144,27 @@ class _AllProductsLayoutState extends State<AllProductsLayout> {
                                     listen: false);
                             await firestoreservice.setCheckoutItem(item);
                           },
-                          child: AcessoriesPageCard(
-                            image: 'assets/images/iphone.png',
+                          child: OtherAccessoriesCard(
+                            widget: product.downloadUrl != null
+                                ? Image.network(
+                                    product.downloadUrl!,
+                                    height: 69,
+                                    width: 119,
+                                  )
+                                : Image.asset(
+                                    'assets/images/iphone.png',
+                                    height: 69,
+                                    width: 119,
+                                  ),
+                            product: product.productname!,
+                            price: product.price!.toString(),
+                          ),
+                          /*AcessoriesPageCard(
+                            image: product.downloadUrl!,
                             product: product.productname!,
                             price: product.price!,
-                          ),
+                          ),*/
                         ),
-                        // ],
-                        // ),
                       )
                       .toList();
                   return Container(
@@ -167,12 +177,7 @@ class _AllProductsLayoutState extends State<AllProductsLayout> {
                       crossAxisCount: 2,
                       children: children,
                     ),
-                  ); /*ListView.separated(
-                      
-                      separatorBuilder:( context, index) => Divider()  ,
-                      itemCount: 1,
-                      itemBuilder: ( context, index) => ListTile(),
-                      );*/
+                  );
                 }
                 return Row(
                   children: [

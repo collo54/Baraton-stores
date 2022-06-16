@@ -2,11 +2,15 @@ import 'package:baraton_stores/constants/colors.dart';
 import 'package:baraton_stores/constants/text.dart';
 import 'package:baraton_stores/models/product_model.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
 
+import '../services/firebase_storage_service.dart';
 import '../services/firestore_service.dart';
+import '../services/image_picker.dart';
 
 class HouseitemsForm extends StatefulWidget {
   const HouseitemsForm({Key? key, this.product}) : super(key: key);
@@ -19,8 +23,9 @@ class HouseitemsForm extends StatefulWidget {
 class _HouseitemsFormState extends State<HouseitemsForm> {
   final _formKey = GlobalKey<FormState>();
 
-  late String? _price;
-  late String? _item;
+  double? _price;
+  String? _item;
+  String? _downloadurl;
 
   @override
   void initState() {
@@ -47,6 +52,7 @@ class _HouseitemsFormState extends State<HouseitemsForm> {
       //final timeStamp = DateTime.now().millisecondsSinceEpoch;
       final time = DateTime.now().toIso8601String();
       final item = ProductItem(
+        downloadUrl: _downloadurl,
         price: _price,
         productname: _item,
         timeStamp: time,
@@ -56,6 +62,19 @@ class _HouseitemsFormState extends State<HouseitemsForm> {
           Provider.of<FirestoreService>(context, listen: false);
       await firestoreservice.setProduct4(item);
       await firestoreservice.setProductAll(item);
+    }
+  }
+
+  Future<void> _addImage(BuildContext context) async {
+    // Navigator.of(context).pop();
+    final imagePicker = Provider.of<ImagePickerService>(context, listen: false);
+    final file = await imagePicker.pickImage(source: ImageSource.gallery);
+    final storage = Provider.of<FirebaseStorageService>(context, listen: false);
+    final downloadUrl = await storage.uploadAvatar(file: file);
+
+    _downloadurl = downloadUrl;
+    if (kDebugMode) {
+      print(_downloadurl);
     }
   }
 
@@ -129,6 +148,33 @@ class _HouseitemsFormState extends State<HouseitemsForm> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
+        MaterialButton(
+          color: kPrimaryOrange,
+          shape: const RoundedRectangleBorder(
+              borderRadius: BorderRadius.all(Radius.circular(1.0))),
+          onPressed: () {
+            _addImage(context);
+          },
+          child: Padding(
+            padding: const EdgeInsets.symmetric(
+              vertical: 10.0,
+            ),
+            child: Text(
+              "pick product image",
+              style: GoogleFonts.abhayaLibre(
+                textStyle: const TextStyle(
+                  height: 1.2,
+                  color: kwhite,
+                  fontSize: 18,
+                  fontWeight: FontWeight.w400,
+                ),
+              ),
+            ),
+          ),
+        ),
+        const SizedBox(
+          height: 15,
+        ),
         MaterialButton(
           color: kcartbutton,
           shape: const RoundedRectangleBorder(
@@ -247,9 +293,13 @@ class _HouseitemsFormState extends State<HouseitemsForm> {
           return null;
         },
         //initialValue: _name,
-        onSaved: (value) => _price = value,
+        onSaved: (value) => _price = double.parse(value!),
         style: const TextStyle(fontWeight: FontWeight.w600),
-        keyboardType: TextInputType.visiblePassword,
+        // keyboardType: TextInputType.visiblePassword,
+        keyboardType: TextInputType.numberWithOptions(
+          signed: false,
+          decimal: true,
+        ),
         decoration: InputDecoration(
           fillColor: kpagewhite,
           filled: true,

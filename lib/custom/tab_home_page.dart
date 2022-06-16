@@ -1,6 +1,5 @@
 import 'package:baraton_stores/custom/cupertino_home_scafold.dart';
 import 'package:baraton_stores/custom/tab_item.dart';
-import 'package:baraton_stores/pages/account_info_page.dart';
 import 'package:baraton_stores/pages/checkout_page.dart';
 import 'package:baraton_stores/pages/search_page.dart';
 import 'package:flutter/material.dart';

@@ -1,4 +1,5 @@
 import 'package:baraton_stores/models/checkout_product.dart';
+import 'package:baraton_stores/models/new_product_model.dart';
 import 'package:baraton_stores/models/product_model.dart';
 import 'package:baraton_stores/services/document_path.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -20,12 +21,14 @@ class FirestoreService {
     await reference.set(data);
   }
 
+  //creates or writes a product for buyers collection per user id
   Future<void> setCheckoutItem(CheckoutItem checkoutItem) async {
     await _set(
         path: DocumentPath.productcheckout(uid, checkoutItem.id),
         data: checkoutItem.toMap());
   }
 
+  //reads a product from buyers collection per user id
   Stream<List<CheckoutItem>> checkoutItemsStream() {
     final path = DocumentPath.checkout(uid);
     final reference = FirebaseFirestore.instance.collection(path);
@@ -38,41 +41,44 @@ class FirestoreService {
         .toList());
   }
 
+  //deletes a doc from buyers collection/uid/docid
   Future<void> deleteContibutor(CheckoutItem checkoutItem) async {
     final path = DocumentPath.productcheckout(uid, checkoutItem.id);
     final reference = FirebaseFirestore.instance.doc(path);
-    print('delete: $path');
+    if (kDebugMode) {
+      print('delete: $path');
+    }
     await reference.delete();
   }
 
-  //sets message data to users collection
-  /* Future<void> setMessage(ProductItem model) async {
+  //creates or writes a product for apliances collection per user id
+  Future<void> setappliance(NewProductItem newItem) async {
     await _set(
-        path: FirestorePath.messagefeed(documentIdFromCurrentDate()),
-        data: model.toMap());
-  }*/
-
-  /* Future<DocumentReference> setcheckout(ProductItem productItem) async {
-    return await FirebaseFirestore.instance
-        .collection(uid)
-        .add(productItem.toMap());
+        path: DocumentPath.newproduct(newItem.id), data: newItem.toMap());
   }
 
-  Future<void> deletecheckout(ProductItem productItem) async {
-    return await FirebaseFirestore.instance.collection(uid).doc().delete();
-    //.add(productItem.toMap());
-  }
-
-  Stream<List<ProductItem>> checkoutStream() {
-    final reference = FirebaseFirestore.instance
-        .collection(uid)
-        .limit(50)
-        .orderBy('timeStamp', descending: true);
+  //reads a product from appliances collection
+  Stream<List<NewProductItem>> apliancesStream() {
+    final path = DocumentPath.streamproduct();
+    final reference = FirebaseFirestore.instance.collection(path);
     final snapshots = reference.snapshots();
     return snapshots.map((snapshot) => snapshot.docs
-        .map((snapshot) => ProductItem.fromMap(snapshot.data()))
+        .map((
+          snapshot,
+        ) =>
+            NewProductItem.fromMap(snapshot.data(), snapshot.id))
         .toList());
-  }*/
+  }
+
+  //deletes a doc from aplliances collection
+  Future<void> deleteappliance(NewProductItem newItem) async {
+    final path = DocumentPath.newproduct(newItem.id);
+    final reference = FirebaseFirestore.instance.doc(path);
+    if (kDebugMode) {
+      print('delete: $path');
+    }
+    await reference.delete();
+  }
 
   //creates new products on computers collection
   Future<DocumentReference> setProductAll(ProductItem productItem) async {
@@ -184,19 +190,6 @@ class FirestoreService {
         .toList());
   }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 /* Future<DocumentReference> setcheckout(ProductItem productItem) async {
     return await FirebaseFirestore.instance
