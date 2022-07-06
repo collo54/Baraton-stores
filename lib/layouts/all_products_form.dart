@@ -47,7 +47,7 @@ class _AllProductsFormState extends State<AllProductsForm> {
   }
 
   Future<void> _submit() async {
-    if (_validateAndSaveForm()) {
+    if (_validateAndSaveForm() || _downloadurl != null) {
       final userId = FirebaseAuth.instance.currentUser!.uid;
       //final timeStamp = DateTime.now().millisecondsSinceEpoch;
       final time = DateTime.now().toIso8601String();
@@ -97,7 +97,9 @@ class _AllProductsFormState extends State<AllProductsForm> {
       final snapshot = await uploadTask!.snapshot;
       final url = await snapshot.ref.getDownloadURL();
 
-      _downloadurl = url;
+      setState(() {
+        _downloadurl = url;
+      });
     } else {
       //write a code for android or ios
     }
@@ -432,8 +434,8 @@ class _AllProductsFormState extends State<AllProductsForm> {
         );
       });
 
-  _gobackPage(BuildContext context) {
-    _submit();
+  Future<void> _gobackPage(BuildContext context) async {
+    await _submit();
     Navigator.of(context).pop();
   }
 }
