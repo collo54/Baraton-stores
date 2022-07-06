@@ -25,6 +25,7 @@ class OtherAccessoriesCard extends StatelessWidget {
         width: 167,
         child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             widget,
             const SizedBox(
@@ -37,17 +38,23 @@ class OtherAccessoriesCard extends StatelessWidget {
                 style: tlaptopacessoriesname,
               ),
             ),
-            Row(
-              children: [
-                Text(
-                  'Kes',
-                  style: taccessoriesprice,
-                ),
-                Text(
-                  price,
-                  style: taccessoriesprice,
-                ),
-              ],
+            Padding(
+              padding: EdgeInsets.only(left: 40),
+              child: Row(
+                children: [
+                  Text(
+                    'Kes',
+                    style: taccessoriesprice,
+                  ),
+                  SizedBox(
+                    width: 5,
+                  ),
+                  Text(
+                    price,
+                    style: taccessoriesprice,
+                  ),
+                ],
+              ),
             ),
           ],
         ),

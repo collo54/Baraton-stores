@@ -50,7 +50,7 @@ class CheckoutPageCard extends StatelessWidget {
                 )
               ],
             ),
-            Image.asset(
+            Image.network(
               image,
               height: 130,
               width: 97,

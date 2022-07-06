@@ -95,7 +95,7 @@ class _CheckoutLayoutState extends State<CheckoutLayout> {
                           direction: DismissDirection.down,
                           onDismissed: (direction) => _delete(context, product),
                           child: CheckoutPageCard(
-                            image: 'assets/images/iphone.png',
+                            image: product.downloadUrl!,
                             product: product.productname!,
                             price: product.price!.toString(),
                           ),

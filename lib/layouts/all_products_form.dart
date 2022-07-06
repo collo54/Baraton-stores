@@ -1,16 +1,15 @@
 import 'package:baraton_stores/constants/colors.dart';
 import 'package:baraton_stores/constants/text.dart';
 import 'package:baraton_stores/models/product_model.dart';
+import 'package:file_picker/file_picker.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
 
-import '../services/firebase_storage_service.dart';
 import '../services/firestore_service.dart';
-import '../services/image_picker.dart';
 
 class AllProductsForm extends StatefulWidget {
   const AllProductsForm({Key? key, this.product}) : super(key: key);
@@ -22,7 +21,8 @@ class AllProductsForm extends StatefulWidget {
 
 class _AllProductsFormState extends State<AllProductsForm> {
   final _formKey = GlobalKey<FormState>();
-
+  PlatformFile? _pickedFile;
+  UploadTask? uploadTask;
   double? _price;
   String? _item;
   String? _downloadurl;
@@ -64,7 +64,7 @@ class _AllProductsFormState extends State<AllProductsForm> {
     }
   }
 
-  Future<void> _addImage(BuildContext context) async {
+  /* Future<void> _addImage(BuildContext context) async {
     // Navigator.of(context).pop();
     final imagePicker = Provider.of<ImagePickerService>(context, listen: false);
     final file = await imagePicker.pickImage(source: ImageSource.gallery);
@@ -72,6 +72,36 @@ class _AllProductsFormState extends State<AllProductsForm> {
     final downloadUrl = await storage.uploadAvatar(file: file);
 
     _downloadurl = downloadUrl;
+    if (kDebugMode) {
+      print(_downloadurl);
+    }
+  }*/
+
+  Future<void> _pickfile(BuildContext context) async {
+    final result = await FilePicker.platform.pickFiles();
+
+    setState(() {
+      _pickedFile = result?.files.first;
+    });
+  }
+
+  Future<void> _addImage(BuildContext context) async {
+    if (kIsWeb) {
+      final bytes = _pickedFile!.bytes;
+      final path = _pickedFile!.name;
+      Reference ref = await FirebaseStorage.instance.ref('uploads/$path');
+      setState(() {
+        uploadTask = ref.putData(bytes!);
+      });
+
+      final snapshot = await uploadTask!.snapshot;
+      final url = await snapshot.ref.getDownloadURL();
+
+      _downloadurl = url;
+    } else {
+      //write a code for android or ios
+    }
+
     if (kDebugMode) {
       print(_downloadurl);
     }
@@ -119,6 +149,21 @@ class _AllProductsFormState extends State<AllProductsForm> {
         SizedBox(
           height: MediaQuery.of(context).size.height * 0.15,
         ),
+        SizedBox(
+          height: 15,
+        ),
+        if (uploadTask != null) buildProgress(),
+        SizedBox(
+          height: 15,
+        ),
+        if (_pickedFile != null)
+          Text(
+            _pickedFile!.name,
+            style: tcapacityother,
+          ),
+        SizedBox(
+          height: 15,
+        ),
         Card(
           color: kwhite,
           child: _buildForm(),
@@ -153,7 +198,7 @@ class _AllProductsFormState extends State<AllProductsForm> {
           shape: const RoundedRectangleBorder(
               borderRadius: BorderRadius.all(Radius.circular(1.0))),
           onPressed: () {
-            _addImage(context);
+            _pickfile(context);
           },
           child: Padding(
             padding: const EdgeInsets.symmetric(
@@ -161,6 +206,33 @@ class _AllProductsFormState extends State<AllProductsForm> {
             ),
             child: Text(
               "pick product image",
+              style: GoogleFonts.abhayaLibre(
+                textStyle: const TextStyle(
+                  height: 1.2,
+                  color: kwhite,
+                  fontSize: 18,
+                  fontWeight: FontWeight.w400,
+                ),
+              ),
+            ),
+          ),
+        ),
+        const SizedBox(
+          height: 15,
+        ),
+        MaterialButton(
+          color: kPrimaryOrange,
+          shape: const RoundedRectangleBorder(
+              borderRadius: BorderRadius.all(Radius.circular(1.0))),
+          onPressed: () {
+            _addImage(context);
+          },
+          child: Padding(
+            padding: const EdgeInsets.symmetric(
+              vertical: 10.0,
+            ),
+            child: Text(
+              "upload product image",
               style: GoogleFonts.abhayaLibre(
                 textStyle: const TextStyle(
                   height: 1.2,
@@ -327,6 +399,38 @@ class _AllProductsFormState extends State<AllProductsForm> {
       ),
     ];
   }
+
+  Widget buildProgress() => StreamBuilder<TaskSnapshot>(
+      stream: uploadTask!.snapshotEvents,
+      builder: (context, snapshot) {
+        if (snapshot.hasData) {
+          final data = snapshot.data;
+          double progress = data!.bytesTransferred / data.totalBytes;
+          return SizedBox(
+            height: 50,
+            child: Stack(
+              fit: StackFit.expand,
+              children: [
+                LinearProgressIndicator(
+                  value: progress,
+                  backgroundColor: kgreytext,
+                  color: kPrimaryOrange,
+                ),
+                Center(
+                  child: Text(
+                    '${(100 * progress).roundToDouble()}%',
+                    style: tprogress,
+                  ),
+                )
+              ],
+            ),
+          );
+        }
+        return Text(
+          'retry',
+          style: tcheckoutprice,
+        );
+      });
 
   _gobackPage(BuildContext context) {
     _submit();

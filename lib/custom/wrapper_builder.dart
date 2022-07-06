@@ -1,4 +1,5 @@
 import 'package:baraton_stores/models/user_model.dart';
+import 'package:baraton_stores/pages/account_pic_page.dart';
 import 'package:baraton_stores/services/image_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -30,6 +31,9 @@ class WrapperBuilder extends StatelessWidget {
                 ),
                 Provider<FirestoreService>(
                   create: (_) => FirestoreService(uid: user.uid!),
+                ),
+                Provider<Widget>(
+                  create: (_) => AccountPicPage(uid: user.uid!),
                 ),
               ],
               child: builder(context, snapshot), //HomePage(),

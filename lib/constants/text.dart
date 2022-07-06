@@ -75,6 +75,15 @@ TextStyle tformtext = GoogleFonts.ptMono(
   ),
 );
 
+TextStyle tprogress = GoogleFonts.ptMono(
+  textStyle: const TextStyle(
+    height: 1.12,
+    color: kwhite,
+    fontSize: 16,
+    fontWeight: FontWeight.w400,
+  ),
+);
+
 TextStyle tcapacity = GoogleFonts.ptMono(
   textStyle: const TextStyle(
     height: 1.12,

@@ -137,6 +137,7 @@ class _ClothesLayoutState extends State<ClothesLayout> {
                                 documentIdFromCurrentDate();
                             final time = DateTime.now().toIso8601String();
                             final item = CheckoutItem(
+                              downloadUrl: product.downloadUrl,
                               id: id,
                               price: product.price!,
                               productname: product.productname!,

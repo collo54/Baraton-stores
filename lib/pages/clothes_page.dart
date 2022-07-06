@@ -2,13 +2,9 @@ import 'package:baraton_stores/constants/colors.dart';
 import 'package:baraton_stores/layouts/clothes_layout.dart';
 import 'package:baraton_stores/layouts/clothes_product_form.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 
 import '../constants/switch.dart';
 import '../constants/text.dart';
-import '../models/new_product_model.dart';
-import '../services/firestore_service.dart';
-import '../widgets/acessories_card.dart';
 
 //enum AccountType { vendor, buyer }
 

@@ -86,9 +86,6 @@ class _AllProductsLayoutState extends State<AllProductsLayout> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        const SizedBox(
-          height: 10,
-        ),
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 5),
           child: Text(
@@ -133,6 +130,7 @@ class _AllProductsLayoutState extends State<AllProductsLayout> {
                                 documentIdFromCurrentDate();
                             final time = DateTime.now().toIso8601String();
                             final item = CheckoutItem(
+                              downloadUrl: product.downloadUrl,
                               id: id,
                               price: product.price!,
                               productname: product.productname!,
