@@ -80,14 +80,14 @@ class FirestoreService {
     await reference.delete();
   }
 
-  //creates new products on computers collection
+  //creates new product on all products collection
   Future<DocumentReference> setProductAll(ProductItem productItem) async {
     return await FirebaseFirestore.instance
         .collection('All products')
         .add(productItem.toMap());
   }
 
-  //reads data from computers stream
+  //reads data from all products stream
   Stream<List<ProductItem>> productItemStreamAll() {
     final reference = FirebaseFirestore.instance
         .collection('All products')
@@ -124,7 +124,7 @@ class FirestoreService {
         .add(productItem.toMap());
   }
 
-  //reads data from computers stream
+  //reads data from beauty products stream
   Stream<List<ProductItem>> productItemStream1() {
     final reference = FirebaseFirestore.instance
         .collection('Beauty products')

@@ -166,7 +166,7 @@ class _AllProductsLayoutState extends State<AllProductsLayout> {
                       )
                       .toList();
                   return Container(
-                    height: MediaQuery.of(context).size.height,
+                    height: MediaQuery.of(context).size.height * 0.75,
                     child: GridView.count(
                       primary: false,
                       padding: const EdgeInsets.all(5),
@@ -213,11 +213,8 @@ class _AllProductsLayoutState extends State<AllProductsLayout> {
           ), //StreamBuilder(builder: builder),
         ),
         const SizedBox(
-          height: 5,
+          height: 150,
         ),
-        const SizedBox(
-          height: 40,
-        )
       ],
     );
   }

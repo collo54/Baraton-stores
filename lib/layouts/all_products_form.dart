@@ -4,6 +4,7 @@ import 'package:baraton_stores/models/product_model.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -47,7 +48,7 @@ class _AllProductsFormState extends State<AllProductsForm> {
   }
 
   Future<void> _submit() async {
-    if (_validateAndSaveForm() || _downloadurl != null) {
+    if (_validateAndSaveForm()) {
       final userId = FirebaseAuth.instance.currentUser!.uid;
       //final timeStamp = DateTime.now().millisecondsSinceEpoch;
       final time = DateTime.now().toIso8601String();
@@ -60,7 +61,12 @@ class _AllProductsFormState extends State<AllProductsForm> {
       );
       final firestoreservice =
           Provider.of<FirestoreService>(context, listen: false);
-      await firestoreservice.setProductAll(item);
+      if (item.downloadUrl != null) {
+        await firestoreservice.setProductAll(item);
+        alertDialogesucess();
+      } else {
+        alertDialogefailure();
+      }
     }
   }
 
@@ -149,7 +155,20 @@ class _AllProductsFormState extends State<AllProductsForm> {
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
         SizedBox(
-          height: MediaQuery.of(context).size.height * 0.15,
+          height: 15,
+        ),
+        TextButton(
+          onPressed: () => _gobackPage(context),
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 15),
+            child: Text(
+              '< back to products',
+              style: tdeliverytext,
+            ),
+          ),
+        ),
+        SizedBox(
+          height: MediaQuery.of(context).size.height * 0.1,
         ),
         SizedBox(
           height: 15,
@@ -254,7 +273,7 @@ class _AllProductsFormState extends State<AllProductsForm> {
           shape: const RoundedRectangleBorder(
               borderRadius: BorderRadius.all(Radius.circular(1.0))),
           onPressed: () {
-            _gobackPage(context);
+            _submit();
           },
           child: Padding(
             padding: const EdgeInsets.symmetric(
@@ -434,8 +453,90 @@ class _AllProductsFormState extends State<AllProductsForm> {
         );
       });
 
-  Future<void> _gobackPage(BuildContext context) async {
-    await _submit();
-    Navigator.of(context).pop();
+  void _gobackPage(BuildContext context) {
+    Navigator.of(context).pop(context);
+  }
+
+  Future<Widget> alertDialogefailure() async {
+    final alertfailure = showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          backgroundColor: Colors.white,
+          title: CircleAvatar(
+            backgroundColor: Colors.red,
+            radius: 20,
+            child: Icon(
+              CupertinoIcons.multiply,
+              // Icons.cancel,
+              color: Colors.white,
+              size: 30,
+            ),
+          ),
+          /*Text(
+            'Upload incomplete',
+            style: GoogleFonts.robotoSlab(
+              textStyle: const TextStyle(
+                color: Color.fromARGB(255, 37, 37, 37),
+                fontSize: 16,
+                fontWeight: FontWeight.w400,
+              ),
+            ),
+          ),*/
+          content: Text(
+            'product has not been added try again',
+            style: GoogleFonts.robotoMono(
+              textStyle: const TextStyle(
+                color: Color.fromARGB(255, 37, 37, 37),
+                fontSize: 14,
+                fontWeight: FontWeight.w400,
+              ),
+            ),
+          ),
+        );
+      },
+    );
+    return await alertfailure;
+  }
+
+  Future<Widget> alertDialogesucess() async {
+    final alertsucess = showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          backgroundColor: Colors.white,
+          title: CircleAvatar(
+            backgroundColor: Colors.green,
+            radius: 20,
+            child: Icon(
+              Icons.check,
+              color: Colors.white,
+              size: 30,
+            ),
+          ),
+          /*Text(
+            'Upload incomplete',
+            style: GoogleFonts.robotoSlab(
+              textStyle: const TextStyle(
+                color: Color.fromARGB(255, 37, 37, 37),
+                fontSize: 16,
+                fontWeight: FontWeight.w400,
+              ),
+            ),
+          ),*/
+          content: Text(
+            'product has been added successfully',
+            style: GoogleFonts.robotoMono(
+              textStyle: const TextStyle(
+                color: Color.fromARGB(255, 37, 37, 37),
+                fontSize: 14,
+                fontWeight: FontWeight.w400,
+              ),
+            ),
+          ),
+        );
+      },
+    );
+    return await alertsucess;
   }
 }
