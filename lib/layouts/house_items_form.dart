@@ -54,8 +54,10 @@ class _HouseitemsFormState extends State<HouseitemsForm> {
       final userId = FirebaseAuth.instance.currentUser!.uid;
       //final timeStamp = DateTime.now().millisecondsSinceEpoch;
       final time = DateTime.now().toIso8601String();
+      final id = widget.product?.id ?? documentIdFromCurrentDate();
       final item = ProductItem(
         downloadUrl: _downloadurl,
+        id: id,
         price: _price,
         productname: _item,
         timeStamp: time,

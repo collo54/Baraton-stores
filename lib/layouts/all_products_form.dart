@@ -51,8 +51,10 @@ class _AllProductsFormState extends State<AllProductsForm> {
     if (_validateAndSaveForm()) {
       final userId = FirebaseAuth.instance.currentUser!.uid;
       //final timeStamp = DateTime.now().millisecondsSinceEpoch;
+      final id = widget.product?.id ?? documentIdFromCurrentDate();
       final time = DateTime.now().toIso8601String();
       final item = ProductItem(
+        id: id,
         downloadUrl: _downloadurl,
         price: _price,
         productname: _item,

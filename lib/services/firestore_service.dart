@@ -80,8 +80,38 @@ class FirestoreService {
     await reference.delete();
   }
 
+  //creates or writes a product for all products collection per user id
+  Future<void> setProductAll(ProductItem productItem) async {
+    await _set(
+        path: DocumentPath.newAllProduct(productItem.id),
+        data: productItem.toMap());
+  }
+
+  //reads a product from all products collection
+  Stream<List<ProductItem>> productItemStreamAll() {
+    final path = DocumentPath.streamAllProduct();
+    final reference = FirebaseFirestore.instance.collection(path);
+    final snapshots = reference.snapshots();
+    return snapshots.map((snapshot) => snapshot.docs
+        .map((
+          snapshot,
+        ) =>
+            ProductItem.fromMap(snapshot.data(), snapshot.id))
+        .toList());
+  }
+
+  //deletes a doc from all products collection
+  Future<void> deleteAllProduct(ProductItem productItem) async {
+    final path = DocumentPath.newAllProduct(productItem.id);
+    final reference = FirebaseFirestore.instance.doc(path);
+    if (kDebugMode) {
+      print('delete: $path');
+    }
+    await reference.delete();
+  }
+
   //creates new product on all products collection
-  Future<DocumentReference> setProductAll(ProductItem productItem) async {
+  /* Future<DocumentReference> setProductAll(ProductItem productItem) async {
     return await FirebaseFirestore.instance
         .collection('All products')
         .add(productItem.toMap());
@@ -98,7 +128,39 @@ class FirestoreService {
         .map((snapshot) => ProductItem.fromMap(snapshot.data()))
         .toList());
   }
+  */
 
+  //creates or writes a product for computers collection per user id
+  Future<void> setProduct(ProductItem productItem) async {
+    await _set(
+        path: DocumentPath.newComputer(productItem.id),
+        data: productItem.toMap());
+  }
+
+  //reads a product from computers collection
+  Stream<List<ProductItem>> productItemStream() {
+    final path = DocumentPath.streamComputer();
+    final reference = FirebaseFirestore.instance.collection(path);
+    final snapshots = reference.snapshots();
+    return snapshots.map((snapshot) => snapshot.docs
+        .map((
+          snapshot,
+        ) =>
+            ProductItem.fromMap(snapshot.data(), snapshot.id))
+        .toList());
+  }
+
+  //deletes a doc from computers collection
+  Future<void> deleteComputer(ProductItem productItem) async {
+    final path = DocumentPath.newComputer(productItem.id);
+    final reference = FirebaseFirestore.instance.doc(path);
+    if (kDebugMode) {
+      print('delete: $path');
+    }
+    await reference.delete();
+  }
+
+  /*
   //creates new products on computers collection
   Future<DocumentReference> setProduct(ProductItem productItem) async {
     return await FirebaseFirestore.instance
@@ -116,8 +178,40 @@ class FirestoreService {
     return snapshots.map((snapshot) => snapshot.docs
         .map((snapshot) => ProductItem.fromMap(snapshot.data()))
         .toList());
+  } 
+  */
+
+  //creates or writes a product for Beauty Products collection per user id
+  Future<void> addprod(ProductItem productItem) async {
+    await _set(
+        path: DocumentPath.newBeautyProduct(productItem.id),
+        data: productItem.toMap());
   }
 
+  //reads a product from Beauty Products collection
+  Stream<List<ProductItem>> productItemStream1() {
+    final path = DocumentPath.streamBeautyProduct();
+    final reference = FirebaseFirestore.instance.collection(path);
+    final snapshots = reference.snapshots();
+    return snapshots.map((snapshot) => snapshot.docs
+        .map((
+          snapshot,
+        ) =>
+            ProductItem.fromMap(snapshot.data(), snapshot.id))
+        .toList());
+  }
+
+  //deletes a doc from Beauty Products collection
+  Future<void> deleteBeautyProduct(ProductItem productItem) async {
+    final path = DocumentPath.newBeautyProduct(productItem.id);
+    final reference = FirebaseFirestore.instance.doc(path);
+    if (kDebugMode) {
+      print('delete: $path');
+    }
+    await reference.delete();
+  }
+
+  /*
   Future<DocumentReference> addprod(ProductItem productItem) async {
     return await FirebaseFirestore.instance
         .collection('Beauty products')
@@ -135,8 +229,39 @@ class FirestoreService {
         .map((snapshot) => ProductItem.fromMap(snapshot.data()))
         .toList());
   }
+  */
 
-  Future<DocumentReference> setProduct2(ProductItem productItem) async {
+  //creates or writes a product for phones collection per user id
+  Future<void> setProduct2(ProductItem productItem) async {
+    await _set(
+        path: DocumentPath.newPhones(productItem.id),
+        data: productItem.toMap());
+  }
+
+  //reads a product from phones collection
+  Stream<List<ProductItem>> productItemStream2() {
+    final path = DocumentPath.streamPhones();
+    final reference = FirebaseFirestore.instance.collection(path);
+    final snapshots = reference.snapshots();
+    return snapshots.map((snapshot) => snapshot.docs
+        .map((
+          snapshot,
+        ) =>
+            ProductItem.fromMap(snapshot.data(), snapshot.id))
+        .toList());
+  }
+
+  //deletes a doc from phones collection
+  Future<void> deletePhonesProduct(ProductItem productItem) async {
+    final path = DocumentPath.newPhones(productItem.id);
+    final reference = FirebaseFirestore.instance.doc(path);
+    if (kDebugMode) {
+      print('delete: $path');
+    }
+    await reference.delete();
+  }
+
+  /*Future<DocumentReference> setProduct2(ProductItem productItem) async {
     return await FirebaseFirestore.instance
         .collection('phones and acessories')
         .add(productItem.toMap());
@@ -153,7 +278,39 @@ class FirestoreService {
         .map((snapshot) => ProductItem.fromMap(snapshot.data()))
         .toList());
   }
+  */
 
+  //creates or writes a product for Clothes collection per user id
+  Future<void> setProduct3(ProductItem productItem) async {
+    await _set(
+        path: DocumentPath.newClothes(productItem.id),
+        data: productItem.toMap());
+  }
+
+  //reads a product from Clothes collection
+  Stream<List<ProductItem>> productItemStream3() {
+    final path = DocumentPath.streamClothes();
+    final reference = FirebaseFirestore.instance.collection(path);
+    final snapshots = reference.snapshots();
+    return snapshots.map((snapshot) => snapshot.docs
+        .map((
+          snapshot,
+        ) =>
+            ProductItem.fromMap(snapshot.data(), snapshot.id))
+        .toList());
+  }
+
+  //deletes a doc from Clothes collection
+  Future<void> deleteClothesProduct(ProductItem productItem) async {
+    final path = DocumentPath.newClothes(productItem.id);
+    final reference = FirebaseFirestore.instance.doc(path);
+    if (kDebugMode) {
+      print('delete: $path');
+    }
+    await reference.delete();
+  }
+
+  /*
   Future<DocumentReference> setProduct3(ProductItem productItem) async {
     return await FirebaseFirestore.instance
         .collection('clothes')
@@ -171,7 +328,39 @@ class FirestoreService {
         .map((snapshot) => ProductItem.fromMap(snapshot.data()))
         .toList());
   }
+  */
 
+  //creates or writes a product for Household items collection per user id
+  Future<void> setProduct4(ProductItem productItem) async {
+    await _set(
+        path: DocumentPath.newHouseholdProduct(productItem.id),
+        data: productItem.toMap());
+  }
+
+  //reads a product from Household items collection
+  Stream<List<ProductItem>> productItemStream4() {
+    final path = DocumentPath.streamHouseholdProduct();
+    final reference = FirebaseFirestore.instance.collection(path);
+    final snapshots = reference.snapshots();
+    return snapshots.map((snapshot) => snapshot.docs
+        .map((
+          snapshot,
+        ) =>
+            ProductItem.fromMap(snapshot.data(), snapshot.id))
+        .toList());
+  }
+
+  //deletes a doc from Household items collection
+  Future<void> deleteHouseholdProduct(ProductItem productItem) async {
+    final path = DocumentPath.newHouseholdProduct(productItem.id);
+    final reference = FirebaseFirestore.instance.doc(path);
+    if (kDebugMode) {
+      print('delete: $path');
+    }
+    await reference.delete();
+  }
+
+  /*
   Future<DocumentReference> setProduct4(ProductItem productItem) async {
     return await FirebaseFirestore.instance
         .collection('household items')
@@ -189,7 +378,9 @@ class FirestoreService {
         .map((snapshot) => ProductItem.fromMap(snapshot.data()))
         .toList());
   }
+  */
 }
+
 
 /* Future<DocumentReference> setcheckout(ProductItem productItem) async {
     return await FirebaseFirestore.instance

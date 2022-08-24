@@ -4,6 +4,7 @@ class ProductItem {
       this.timeStamp,
       this.price,
       this.userId,
+      required this.id,
       this.promocode,
       this.downloadUrl});
   final String? productname;
@@ -12,8 +13,9 @@ class ProductItem {
   final String? userId;
   final String? downloadUrl;
   final String? promocode;
+  final String id;
 
-  factory ProductItem.fromMap(Map<String, dynamic> data) {
+  factory ProductItem.fromMap(Map<String, dynamic> data, String id) {
     final double? price = data['price'];
     final String? timeStamp = data['timeStamp'];
     final String? userId = data['userId'];
@@ -22,6 +24,7 @@ class ProductItem {
     final String? promocode = data['promocode'];
 
     return ProductItem(
+      id: id,
       promocode: promocode,
       price: price,
       productname: productname,

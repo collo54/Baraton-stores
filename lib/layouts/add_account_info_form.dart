@@ -48,7 +48,9 @@ class _AddAccountInfoFormState extends State<AddAccountInfoForm> {
       final userId = FirebaseAuth.instance.currentUser!.uid;
       //final timeStamp = DateTime.now().millisecondsSinceEpoch;
       final time = DateTime.now().toIso8601String();
+      final id = widget.product?.id ?? documentIdFromCurrentDate();
       final item = ProductItem(
+        id: id,
         price: 0,
         productname: _emailconfirm,
         timeStamp: time,
